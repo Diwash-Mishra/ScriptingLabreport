@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+function check(str) {
+    // Check if the first character is uppercase
+    return str.charAt(0) === str.charAt(0).toUpperCase();
+}
+
+// Prompt the user to input a string
+var userInput = prompt("Enter a string:");
+console.log("User input:", userInput);
+
+// Check if the first character of the input string is uppercase
+if (userInput) {
+    if (check(userInput)) {
+        console.log("The first character of the string is uppercase.");
+    } else {
+        console.log("The first character of the string is not uppercase.");
+    }
+} else {
+    alert("No input provided.");
+}
+
+  </script>  
+</body>
+</html>
+

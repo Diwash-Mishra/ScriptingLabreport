@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery Animation Effects</title>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        margin: 20px;
+        display: inline-block;
+        text-align: center;
+        line-height: 200px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // fadeIn effect
+        $("#btnFadeIn").click(function(){
+            $(".box").fadeIn();
+        });
+
+        // fadeOut effect
+        $("#btnFadeOut").click(function(){
+            $(".box").fadeOut();
+        });
+
+        // slideUp effect
+        $("#btnSlideUp").click(function(){
+            $(".box").slideUp();
+        });
+
+        // slideDown effect
+        $("#btnSlideDown").click(function(){
+            $(".box").slideDown();
+        });
+
+        // Custom animation
+        $("#btnAnimate").click(function(){
+            $(".box").animate({
+                width: "300px",
+                height: "300px",
+                marginLeft: "50px",
+                marginTop: "50px"
+            }, 1000);
+        });
+    });
+</script>
+</head>
+<body>
+
+<button id="btnFadeIn">Fade In</button>
+<button id="btnFadeOut">Fade Out</button>
+<button id="btnSlideUp">Slide Up</button>
+<button id="btnSlideDown">Slide Down</button>
+<button id="btnAnimate">Custom Animation</button>
+
+<div class="box">Box</div>
+
+</body>
+</html>
