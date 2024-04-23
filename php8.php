@@ -1,69 +1,55 @@
-
-Question nai bujina so i dont know
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bank Account Management</title>
+    <title>Bank Account</title>
 </head>
-<body>
-    <h2>Bank Account Management</h2>
-    <form method="post">
-        Enter Account Number: <input type="text" name="accountNumber" required><br><br>
-        Enter Initial Balance: <input type="number" name="initialBalance" step="any" required><br><br>
-        <input type="submit" value="Create Account">
-    </form>
-
-    <?php
-    class BankAccount {
-        private $accountNumber;
-        private $balance;
-
-        public function __construct($accountNumber, $initialBalance) {
-            $this->accountNumber = $accountNumber;
-            $this->balance = $initialBalance;
-        }
-
-        public function getAccountNumber() {
-            return $this->accountNumber;
-        }
-
-        public function getBalance() {
-            return $this->balance;
-        }
-
-        public function deposit($amount) {
-            if ($amount > 0) {
-                $this->balance += $amount;
-                return true;
-            } else {
-                return false; // Cannot deposit negative amount
-            }
-        }
-
-        public function withdraw($amount) {
-            if ($amount > 0 && $amount <= $this->balance) {
-                $this->balance -= $amount;
-                return true;
-            } else {
-                return false; // Insufficient balance or negative amount
-            }
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get input from the form
-        $accountNumber = $_POST['accountNumber'];
-        $initialBalance = $_POST['initialBalance'];
-
-        // Create a new BankAccount instance with user input
-        $account = new BankAccount($accountNumber, $initialBalance);
-
-        // Display account details
-        echo "<h3>Account Created Successfully</h3>";
-        echo "Account Number: " . $account->getAccountNumber() . "<br>";
-        echo "Initial Balance: " . $account->getBalance() . "<br>";
-    }
-    ?>
+<body> 
+<h2>Bank Account Management</h2>
+<form method="post" action="">
+    <label for="accountNumber">Account Number:</label><br>
+    <input type="number" id="accountNumber" name="accountNumber" required><br><br>
+    <label for="amount">Amount:</label><br>
+    <input type="number" id="amount" name="amount" required><br><br>
+    <input type="submit" name="deposit" value="Deposit">  
+    <input type="submit" name="withdraw" value="Withdraw">
+</form>
 </body>
 </html>
+<?php
+session_start();
+class BankAccount {
+    private $balance;
+    public function __construct() {
+        $this->balance = 0;
+    }
+    public function deposit($amount) {
+        $this->balance += $amount;
+        echo "Deposited $amount Successfully.<br>";
+    }
+    public function withdraw($amount) {
+        if ($this->balance >= $amount) {
+            $this->balance -= $amount;
+            echo "Withdrawn $amount Successfully.<br>";
+        } else {
+            echo "Insufficient funds!<br>";
+        }
+    }
+    public function getBalance() {
+        return $this->balance;
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $accountNumber = $_POST['accountNumber'];
+    $amount = $_POST['amount'];
+    if (!isset($_SESSION['bankAccounts'][$accountNumber])) {
+        $_SESSION['bankAccounts'][$accountNumber] = new BankAccount();
+    }
+    $bankAccount = $_SESSION['bankAccounts'][$accountNumber];
+    if (isset($_POST['deposit'])) {
+        $bankAccount->deposit($amount);
+    } elseif (isset($_POST['withdraw'])) {
+        $bankAccount->withdraw($amount);
+    }
+    echo "Current balance: $" . $bankAccount->getBalance() . " of Account " . $accountNumber . ".<br>";
+}
+?>

@@ -1,26 +1,29 @@
-bujya xaina vako navako thaxaina....
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Get Days in Month</title>
+    <script>
+        function getDaysInMonth(year, month) {
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+            return lastDayOfMonth.getDate();
+        }
+        function calculateDays() {
+            const year = parseInt(document.getElementById('year').value);
+            const month = parseInt(document.getElementById('month').value);
+            const daysInMonth = getDaysInMonth(year, month);
+            alert(`Number of days in the selected month: ${daysInMonth}`);
+        }
+    </script>
 </head>
 <body>
-    <script>
-function getDaysInMonth(year, month) {
-    // Use Date object to get the last day of the month
-    var lastDayOfMonth = new Date(year, month + 1, 0).getDate();
-    return lastDayOfMonth;
-}
-
-// Test the function
-console.log(getDaysInMonth(2024, 1)); // February 2024 (leap year)
-console.log(getDaysInMonth(2022, 1)); // February 2022 (non-leap year)
-console.log(getDaysInMonth(2023, 11)); // December 2023
-
-    </script>
+    <form>
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year"><br><br>
+        <label for="month">Month:</label>
+        <input type="number" id="month" name="month"><br><br>
+        <input type="button" value="submit" onclick="calculateDays()">
+    </form>
 </body>
 </html>
